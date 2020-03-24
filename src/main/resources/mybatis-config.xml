@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--配置属性-->
+    <properties resource="jdbc.properties">
+        <property name="driver" value="com.mysql.jdbc.Driver"/>
+    </properties>
+    <!--settings 是最复杂的配置，它能深刻影响 MyBatis 底层的运行，但是在大部分情况下使用默认值便可以运行-->
+    <settings>
+        <!--该配置影响所有映射器中配置缓存的全局开关-->
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
+    <!--设置别名-->
+    <typeAliases>
+        <typeAlias alias="user" type="com.nero.mybatis.config.domain.User"/>
+    </typeAliases>
+    <!--配置类型处理器-->
+    <typeHandlers>
+    </typeHandlers>
+    <!-- 配置mybatis运行环境 -->
+    <environments default="development">
+        <environment id="development">
+            <!-- 使用JDBC的事务管理 -->
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <!-- MySQL数据库驱动 -->
+                <property name="driver" value="${driver}"/>
+                <!-- 连接数据库的URL -->
+                <property name="url"
+                          value="jdbc:mysql://localhost:3306/mybatis?characterEncoding=utf8"/>
+                <property name="username" value="${database.username}"/>
+                <property name="password" value="${database.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!-- 将mapper文件加入到配置文件中 -->
+    <mappers>
+        <mapper resource="mapper/UserMapper.xml"/>
+    </mappers>
+</configuration>
